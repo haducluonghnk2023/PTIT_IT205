@@ -1,0 +1,16 @@
+Tiêu chí
+Spring MVC
+1. Khái niệm: Là một phần của Spring Framework dùng để phát triển ứng dụng web theo mô hình MVC (Model - View - Controller).	
+2. Cấu hình: Cần cấu hình thủ công (XML hoặc Java Config), nhiều bước phức tạp.
+3. Khởi tạo dự án: Tạo thủ công từng phần, mất nhiều thời gian để cấu trúc ban đầu.
+4. Quản lý phụ thuộc:Sử dụng Maven/Gradle nhưng phải thêm và cấu hình phụ thuộc bằng tay.
+5. Thời gian phát triển	Phát triển lâu hơn vì cần thiết lập nhiều cấu hình.	
+6. Phù hợp với	Dự án lớn, yêu cầu tùy chỉnh chi tiết toàn bộ hệ thống.	
+
+Spring Boot
+Là một phần mở rộng của Spring giúp đơn giản hóa việc phát triển ứng dụng bằng cách tự động cấu hình và cung cấp sẵn nhiều cấu trúc mặc định.
+Tự động cấu hình (auto-configuration), đơn giản hóa các thiết lập phức tạp.
+Có thể tạo nhanh qua Spring Initializr hoặc công cụ IDE như IntelliJ, STS.
+Spring Boot Starter giúp khai báo phụ thuộc ngắn gọn và có cấu hình đi kèm.
+Nhanh hơn vì nhiều phần đã được Spring Boot tự động xử lý.
+Dự án vừa và nhỏ, hoặc MVP/Prototype cần nhanh chóng triển khai.
