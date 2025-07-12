@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Form Sách</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+<h2 th:text="${book.bookId == null} ? 'Thêm sách mới' : 'Cập nhật sách'"></h2>
+
+<form th:action="@{/books/save}" th:object="${book}" method="post">
+    <input type="hidden" th:field="*{bookId}" />
+
+    <label for="title">Tiêu đề:</label>
+    <input type="text" id="title" th:field="*{title}" required />
+    <br/>
+
+    <label for="author">Tác giả:</label>
+    <input type="text" id="author" th:field="*{author}" required />
+    <br/>
+
+    <label for="publishDate">Ngày xuất bản:</label>
+    <input type="date" id="publishDate" name="publishDate"
+           th:value="${book.publishDate != null ? #dates.format(book.publishDate, 'yyyy-MM-dd') : ''}" />
+    <br/>
+
+    <label for="year">Năm phát hành:</label>
+    <input type="date" id="year" name="year"
+           th:value="${book.year != null ? #dates.format(book.year, 'yyyy-MM-dd') : ''}" />
+    <br/>
+
+    <button type="submit">Lưu</button>
+    <a th:href="@{/books}">Hủy</a>
+</form>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Danh sách vé đã đặt</h2>
+<p>Số điện thoại: <span th:text="${phone}"></span></p>
+<table>
+  <tr>
+    <th>Chuyến bay</th><th>Tên KH</th><th>Thời gian</th><th>Trạng thái</th><th>Hành động</th>
+  </tr>
+  <tr th:each="b : ${bookings}">
+    <td th:text="${b.flight.flightNumber}"></td>
+    <td th:text="${b.customerName}"></td>
+    <td th:text="${#dates.format(b.bookingTime, 'dd/MM/yyyy HH:mm')}"></td>
+    <td th:text="${b.status}"></td>
+    <td>
+      <form th:action="@{'/bookings/cancel/' + ${b.id}}" method="post">
+        <input type="hidden" name="phone" th:value="${phone}" />
+        <button type="submit" th:if="${b.status == 'BOOKED'}">Hủy</button>
+      </form>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>

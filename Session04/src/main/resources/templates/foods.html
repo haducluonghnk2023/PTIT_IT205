@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="/foods/add">Thêm thực phẩm</a>
+<form method="get" action="/foods">
+    <input type="text" name="name" th:value="${name}" placeholder="Tên thực phẩm" />
+    <select name="categoryId">
+        <option value="">-- Tất cả --</option>
+        <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.categoryName}" th:selected="${c.id == categoryId}"></option>
+    </select>
+    <button type="submit">Tìm kiếm</button>
+</form>
+
+<div th:each="item : ${foods}">
+    <h4 th:text="${item.name}"></h4>
+    <p>Loại: <span th:text="${item.category.categoryName}"></span></p>
+    <p>Giá: <span th:text="${item.price}"></span></p>
+    <p>HSD: <span th:text="${#dates.format(item.expirationDate, 'dd/MM/yyyy')}"></span></p>
+    <a th:href="@{'/foods/edit/' + ${item.id}}">Sửa</a>
+    <form th:action="@{'/foods/delete/' + ${item.id}}" method="post" style="display:inline">
+        <button type="submit">Xóa</button>
+    </form>
+</div>
+
+
+</body>
+</html>

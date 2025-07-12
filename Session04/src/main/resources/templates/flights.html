@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <form method="get" action="/flights">
+    <input type="text" name="departure" placeholder="Điểm khởi hành" th:value="${departure}" />
+    <input type="text" name="destination" placeholder="Điểm đến" th:value="${destination}" />
+    <button type="submit">Tìm kiếm</button>
+  </form>
+
+  <div th:each="flight : ${flights.content}">
+    <p>Số hiệu: <b th:text="${flight.flightNumber}"></b></p>
+    <p>Từ <span th:text="${flight.departure}"></span> đến <span th:text="${flight.destination}"></span></p>
+    <p>Giá: <span th:text="${flight.price}"></span> VND</p>
+
+    <form action="/flights/book" method="post">
+      <input type="hidden" name="flight.id" th:value="${flight.id}" />
+      <input type="text" name="customerName" placeholder="Tên khách hàng" required />
+      <input type="text" name="customerPhone" placeholder="Số điện thoại" required />
+      <button type="submit">Đặt vé</button>
+    </form>
+    <hr/>
+  </div>
+
+</body>
+</html>

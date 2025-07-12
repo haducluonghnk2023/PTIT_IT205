@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post" action="/foods/save" th:object="${foodItem}">
+    <input type="hidden" th:field="*{id}" />
+    <label>Tên thực phẩm:</label>
+    <input type="text" th:field="*{name}" required />
+    <br/>
+    <label>Loại:</label>
+    <select th:field="*{category.id}" required>
+        <option value="">-- Chọn loại --</option>
+        <option th:each="c : ${categories}"
+                th:value="${c.id}"
+                th:text="${c.categoryName}"
+                th:selected="${c.id == foodItem.category?.id}">
+        </option>
+    </select>
+
+    <br/>
+    <label>Giá:</label>
+    <input type="number" th:field="*{price}" step="0.01" required />
+    <br/>
+    <label>Hạn sử dụng:</label>
+    <input type="date"
+           name="expirationDate"
+           th:value="${#dates.format(foodItem.expirationDate, 'yyyy-MM-dd')}"
+           required />
+
+    <br/>
+    <button type="submit">Lưu</button>
+</form>
+
+</body>
+</html>
