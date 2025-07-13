@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Form Sách</title>
+</head>
+<body>
+<h2 th:text="${book.bookId == null} ? 'Thêm sách' : 'Cập nhật sách'"></h2>
+<form th:action="@{/book/save}" method="post" th:object="${book}">
+  <input type="hidden" th:field="*{bookId}" />
+  <label>Tên sách:</label>
+  <input type="text" th:field="*{bookName}" required /><br/>
+  <label>Tác giả:</label>
+  <input type="text" th:field="*{author}" required /><br/>
+  <label>NXB:</label>
+  <input type="text" th:field="*{publisher}" required /><br/>
+  <label>Năm XB:</label>
+  <input type="number" th:field="*{yearPublish}" required /><br/>
+  <label>Giá:</label>
+  <input type="number" step="0.01" th:field="*{price}" required /><br/>
+  <label>Thể loại:</label>
+  <select th:field="*{categoryBook.cateBookId}" required>
+    <option th:each="c : ${categories}"
+            th:value="${c.cateBookId}"
+            th:text="${c.cateBookName}"></option>
+  </select><br/>
+  <button type="submit">Lưu</button>
+</form>
+<a href="/book">← Quay lại danh sách</a>
+</body>
+</html>

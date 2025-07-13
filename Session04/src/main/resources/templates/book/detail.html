@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Chi tiết sách</title>
+</head>
+<body>
+<h2>📖 Chi tiết sách</h2>
+<p><strong>Tên sách:</strong> <span th:text="${book.bookName}"></span></p>
+<p><strong>Tác giả:</strong> <span th:text="${book.author}"></span></p>
+<p><strong>NXB:</strong> <span th:text="${book.publisher}"></span></p>
+<p><strong>Năm XB:</strong> <span th:text="${book.yearPublish}"></span></p>
+<p><strong>Giá:</strong> <span th:text="${book.price}"></span></p>
+<p><strong>Thể loại:</strong> <span th:text="${book.categoryBook.cateBookName}"></span></p>
+<a href="/book">← Quay lại danh sách</a>
+</body>
+</html>

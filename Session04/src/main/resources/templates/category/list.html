@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Category List</h2>
+<a href="/category/add">Add Category</a>
+<table>
+  <tr><th>ID</th><th>Name</th><th>Actions</th></tr>
+  <tr th:each="cate : ${categories}">
+    <td th:text="${cate.cateBookId}"></td>
+    <td th:text="${cate.cateBookName}"></td>
+    <td>
+      <a th:href="@{'/category/detail/' + ${cate.cateBookId}}">Detail</a> |
+      <a th:href="@{'/category/edit/' + ${cate.cateBookId}}">Edit</a> |
+      <a th:href="@{'/category/delete/' + ${cate.cateBookId}}"
+         onclick="return confirm('Are you sure?')">Delete</a>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>

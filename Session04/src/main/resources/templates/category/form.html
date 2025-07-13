@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Form Thể loại</title>
+</head>
+<body>
+<h2 th:text="${categoryBook.cateBookId == null} ? 'Thêm thể loại' : 'Cập nhật thể loại'"></h2>
+<form th:action="@{/category/save}" method="post" th:object="${categoryBook}">
+    <input type="hidden" th:field="*{cateBookId}" />
+    <label>Tên thể loại:</label>
+    <input type="text" th:field="*{cateBookName}" required /><br/>
+    <button type="submit">Lưu</button>
+</form>
+<a href="/category">← Quay lại danh sách</a>
+</body>
+</html>

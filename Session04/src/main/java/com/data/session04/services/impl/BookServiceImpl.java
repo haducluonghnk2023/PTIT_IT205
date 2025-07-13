@@ -2,14 +2,14 @@ package com.data.session04.services.impl;
 
 import com.data.session04.model.entity.Book;
 import com.data.session04.repository.BookRepository;
-import com.data.session04.services.BookService;
+import com.data.session04.services.BooksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 @Service
-public class BookServiceImpl implements BookService {
+public class BookServiceImpl  {
 
     @Autowired
     private BookRepository bookRepository;
