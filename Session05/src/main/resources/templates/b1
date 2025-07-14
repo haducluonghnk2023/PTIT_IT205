@@ -1,0 +1,8 @@
+Dịch vụ web (Web service) là một tập hợp các giao thức và tiêu chuẩn được sử dụng để trao đổi dữ liệu
+giữa các hệ thống phần mềm thông qua mạng, thường là internet. Hai loại dịch vụ web phổ biến hiện nay là SOAP
+(Simple Object Access Protocol) và REST (Representational State Transfer). SOAP sử dụng XML để truyền dữ liệu
+và thường được dùng trong các hệ thống cần tính bảo mật cao, trong khi REST đơn giản hơn,thường sử dụng
+HTTP và định dạng dữ liệu như JSON, dễ tích hợp và phổ biến trong các ứng dụng web hiện đại.Dịch vụ web đóng
+vai trò quan trọng trong phát triển phần mềm vì nó cho phép các ứng dụng khác nhau — có thể được viết bằng các
+ngôn ngữ lập trình khác nhau hoặc chạy trên các nền tảng khác nhau — có thể giao tiếp và chia sẻ dữ liệu
+với nhau một cách hiệu quả, từ đó hỗ trợ xây dựng hệ thống phân tán và tích hợp hệ thống dễ dàng.

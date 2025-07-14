@@ -1,0 +1,8 @@
+| **Tiêu chí**            | **SOAP**                                                        | **REST**                                                                       |
+| ----------------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| **Kiến trúc**           | Thường là **stateful**, có thể giữ trạng thái                   | **Stateless**, mỗi yêu cầu độc lập                                             |
+| **Định dạng dữ liệu**   | **XML** là định dạng bắt buộc                                   | Hỗ trợ **JSON**, XML, HTML, plain text,...                                     |
+| **Tính linh hoạt**      | Ít linh hoạt, sử dụng định dạng cố định cho yêu cầu và phản hồi | Linh hoạt, tận dụng đầy đủ các phương thức HTTP như **GET, POST, PUT, DELETE** |
+| **Tính bảo mật**        | Hỗ trợ cao, dùng **WS-Security**, SSL/TLS                       | Bảo mật dựa trên **HTTPS**, ít hỗ trợ tiêu chuẩn mở rộng hơn SOAP              |
+| **Khả năng mở rộng**    | Phù hợp với môi trường doanh nghiệp lớn, tích hợp hệ thống      | Dễ mở rộng và tích hợp trong ứng dụng web hiện đại                             |
+| **Tốc độ và hiệu năng** | Chậm hơn do dùng XML và nhiều tiêu chuẩn phức tạp               | Nhanh hơn nhờ nhẹ và dùng JSON phổ biến                                        |

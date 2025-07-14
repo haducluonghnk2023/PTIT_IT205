@@ -1,0 +1,8 @@
+RESTful API là một kiểu thiết kế API tuân theo nguyên lý REST (Representational State Transfer), cho phép
+các hệ thống giao tiếp với nhau thông qua giao thức HTTP. Một trong những nguyên tắc quan trọng của REST
+là **stateless** – mỗi yêu cầu từ client đến server phải chứa đầy đủ thông tin và server không lưu trạng
+thái của client giữa các yêu cầu. REST cũng tuân theo mô hình **client-server**, tức là client và server hoạt động
+độc lập, giúp tách biệt giao diện người dùng và logic xử lý dữ liệu. RESTful API sử dụng các phương thức HTTP
+chuẩn như **GET** (lấy dữ liệu), **POST** (tạo mới), **PUT** (cập nhật), **DELETE** (xóa) để thao tác với các tài
+nguyên, thường được biểu diễn dưới dạng URL. Cách tiếp cận này giúp API dễ hiểu, dễ mở rộng và phù hợp với các ứng
+dụng web hiện đại.

@@ -1,0 +1,17 @@
+Caching :
+    - Đối với các endpoint ít thay đổi như GET /users, có thể dùng @Cacheable
+            @Cacheable("users")
+            public List<User> getAllUsers() {
+                return userRepository.findAll();
+            }
+    Kèm theo config:
+            @EnableCaching
+            @SpringBootApplication
+            public class App {
+            }
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+Giảm dữ liệu trả về :
+    - Trả về DTO thay vì entity đầy đủ
+    - Tạo mapper hoặc dùng projection
+Tối ưu hóa truy vấn DB :
+    - Tránh findAll() nếu có hàng triệu bản ghi → dùng phân trang:

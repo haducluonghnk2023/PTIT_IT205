@@ -1,0 +1,5 @@
+Endpoint                |	    Mô tả               |	Trạng thái   |	Nhận xét
+POST /products          |	Thêm sản phẩm mới   	|     Passed     | Không gửi id
+GET /products           |	Lấy danh sách sản phẩm  |     Passed     |	Trả về dạng list
+PUT /products/{id}      |	Cập nhật sản phẩm	    |     Passed     |	Trả về 404 nếu không tồn tại
+DELETE /products/{id}	|   Xóa sản phẩm	        |     Passed     |	Cần cải thiện xử lý lỗi nếu id không tồn tại
