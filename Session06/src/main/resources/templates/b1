@@ -1,0 +1,9 @@
+Một HTTP Request bao gồm bốn thành phần chính: **Method**, **URL**, **Headers** và **Body**
+(nếu có). **Method** xác định hành động mà client muốn thực hiện trên tài nguyên, phổ biến
+nhất là các phương thức như **GET** (lấy dữ liệu), **POST** (gửi dữ liệu mới), **PUT**
+(cập nhật dữ liệu) và **DELETE** (xóa dữ liệu). **URL** (Uniform Resource Locator) chỉ định
+địa chỉ của tài nguyên trên server mà client muốn tương tác. **Headers** chứa các thông tin bổ sung
+như loại dữ liệu (`Content-Type`), thông tin xác thực (`Authorization`), hoặc ngôn ngữ (`Accept-Language`).
+Cuối cùng, phần **Body** (thân yêu cầu) chỉ có ở một số phương thức như POST hoặc PUT và chứa dữ liệu mà
+client muốn gửi lên server, thường ở định dạng JSON, XML hoặc form data. Những thành phần này phối hợp
+với nhau để client và server giao tiếp hiệu quả trong môi trường web.

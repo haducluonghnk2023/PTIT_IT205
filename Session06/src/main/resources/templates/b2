@@ -1,0 +1,12 @@
+| **Mã trạng thái** | **Tên mã**            | **Mô tả ngắn gọn**                                 |
+| ----------------- | --------------------- | -------------------------------------------------- |
+| 200               | OK                    | Yêu cầu đã được xử lý thành công.                  |
+| 201               | Created               | Tài nguyên mới đã được tạo thành công.             |
+| 204               | No Content            | Yêu cầu thành công nhưng không có nội dung trả về. |
+| 400               | Bad Request           | Yêu cầu không hợp lệ do lỗi cú pháp.               |
+| 401               | Unauthorized          | Chưa xác thực hoặc xác thực không hợp lệ.          |
+| 403               | Forbidden             | Không có quyền truy cập tài nguyên.                |
+| 404               | Not Found             | Không tìm thấy tài nguyên được yêu cầu.            |
+| 405               | Method Not Allowed    | Phương thức HTTP không được phép với tài nguyên.   |
+| 500               | Internal Server Error | Lỗi máy chủ nội bộ không xác định.                 |
+| 503               | Service Unavailable   | Dịch vụ tạm thời không khả dụng.                   |
