@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <appender name="JSON_FILE" class="ch.qos.logback.core.FileAppender">
+        <file>logs/json-app.log</file>
+
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <fieldNames>
+                <timestamp>timestamp</timestamp>
+                <level>level</level>
+                <logger>logger</logger>
+                <thread>thread</thread>
+                <message>message</message>
+                <context>context</context>
+            </fieldNames>
+        </encoder>
+
+        <logger name="com.data.session09" level="INFO" additivity="false">
+            <appender-ref ref="FILE"/>
+        </logger>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="JSON_FILE"/>
+    </root>
+</configuration>

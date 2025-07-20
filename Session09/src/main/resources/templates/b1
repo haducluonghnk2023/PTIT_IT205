@@ -1,0 +1,26 @@
+1. Logging là gì?
+Logging (ghi log) là quá trình ghi lại các thông tin, sự kiện, hành động hoặc lỗi xảy ra trong quá trình
+vận hành của một ứng dụng hoặc hệ thống. Các thông tin này được ghi lại dưới dạng nhật ký (log files),
+có thể hiển thị trên console hoặc lưu vào tệp, cơ sở dữ liệu, hay hệ thống log tập trung (như ELK Stack,
+Graylog, Splunk...).
+
+2. Tại sao cần logging trong ứng dụng?
+Dưới đây là ba lý do quan trọng:
+
+a. Hỗ trợ gỡ lỗi và phát hiện lỗi
+Logging giúp lập trình viên dễ dàng theo dõi luồng xử lý của ứng dụng và phát hiện nguyên nhân gây lỗi.
+Khi ứng dụng xảy ra lỗi (ví dụ: NullPointerException), log sẽ cung cấp thông tin chi tiết như thời gian,
+vị trí lỗi, ngữ cảnh thực hiện, giúp rút ngắn thời gian sửa lỗi.
+
+b. Theo dõi hoạt động hệ thống
+Log ghi lại các hành vi của người dùng, các thao tác quan trọng (đăng nhập, giao dịch, thay đổi dữ liệu...).
+Điều này giúp quản trị viên giám sát hoạt động của ứng dụng theo thời gian thực hoặc phân tích dữ liệu sau này.
+
+c. Đáp ứng yêu cầu bảo mật và kiểm toán
+Trong nhiều hệ thống, nhất là tài chính hoặc chính phủ, việc ghi log là bắt buộc để phục vụ kiểm toán,
+điều tra các hành vi bất thường, và truy vết các hành động nguy hiểm.
+
+3. Kết luận
+Logging là một phần không thể thiếu trong quá trình phát triển và vận hành phần mềm. Một hệ thống
+logging tốt giúp tăng khả năng kiểm soát, duy trì ổn định và đảm bảo an toàn cho ứng dụng. Vì vậy,
+ mọi ứng dụng đều nên có cơ chế logging rõ ràng, hiệu quả và có thể mở rộng.
