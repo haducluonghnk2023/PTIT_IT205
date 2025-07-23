@@ -1,0 +1,7 @@
+4 Tính Năng Quan Trọng của Spring Security
+Tính Năng	            Mô Tả
+✅ Authentication	    Xác thực người dùng bằng username/password, JWT, OAuth2, v.v.
+✅ Authorization	    Phân quyền truy cập theo vai trò (ROLE_ADMIN, ROLE_USER,...).
+✅ CSRF Protection	    Bảo vệ chống tấn công Cross-Site Request Forgery (CSRF).
+✅ Session Management	Quản lý session: timeout, concurrent login, remember-me.
+✅ Security Headers	    Tự động thêm các HTTP headers bảo mật (XSS, clickjacking,...).

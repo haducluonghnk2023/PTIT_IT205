@@ -1,0 +1,6 @@
+| Dòng                                         | Giải Thích                                                                             |
+| -------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `.requestMatchers("/public/**").permitAll()` | Cho phép **mọi người** (kể cả chưa đăng nhập) truy cập mọi URL bắt đầu bằng `/public/` |
+| `.anyRequest().authenticated()`              | Các request khác (không `/public/**`) thì **phải đăng nhập**                           |
+| `.httpBasic(...)`                            | Sử dụng xác thực kiểu HTTP Basic (yêu cầu user/pass khi truy cập)                      |
+| `.csrf(...).disable()`                       | Tắt CSRF vì API REST không cần, nếu không sẽ gây lỗi 403 khi POST/PUT                  |
