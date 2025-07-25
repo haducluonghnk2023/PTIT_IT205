@@ -1,0 +1,58 @@
+- 1. JWT là gì?
+JWT (JSON Web Token) là một tiêu chuẩn mở (RFC 7519) dùng để truyền thông tin an toàn giữa các bên dưới dạng JSON.
+ Thông tin được mã hóa (và có thể được ký số) để xác minh tính toàn vẹn và xác thực của dữ liệu.
+Ưu điểm của JWT
+Gọn nhẹ: Là chuỗi text base64, dễ truyền qua HTTP headers.
+Không trạng thái (stateless): Server không cần lưu session; thông tin người dùng được lưu trong token.
+An toàn (nếu dùng đúng cách): Token có thể được ký (HMAC, RSA) để đảm bảo không bị chỉnh sửa.
+Dễ mở rộng: Payload có thể chứa bất kỳ thông tin nào cần thiết.
+Nhược điểm của JWT
+Không thể hủy (revoke) dễ dàng nếu không lưu blacklist.
+Dung lượng lớn hơn session ID thông thường (do payload có thể chứa nhiều thông tin).
+Cần bảo vệ key ký (secret hoặc private key) thật kỹ nếu không token có thể bị giả mạo.
+Token giả mạo vẫn hợp lệ về mặt cấu trúc nếu không xác minh signature.
+
+2. Cấu trúc JWT
+Một chuỗi JWT có 3 phần, được nối với nhau bằng dấu ".", ví dụ:
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+eyJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6IkFETUlOIn0.
+SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+1. Header
+json
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+alg: Thuật toán dùng để ký (ví dụ: HMAC SHA256, RS256).
+typ: Loại token, thường là JWT.
+Được mã hóa base64Url thành chuỗi đầu tiên.
+
+2. Payload
+json
+{
+  "username": "admin",
+  "role": "ADMIN"
+}
+Chứa claims: thông tin về người dùng và các metadata khác.
+Có 3 loại claims:
+Registered (chuẩn): iss, exp, sub, aud, iat, nbf...
+Public: có thể dùng chung giữa các hệ thống.
+Private: định nghĩa bởi ứng dụng (ví dụ: username, role).
+Được mã hóa base64Url thành chuỗi thứ hai.
+
+3. Signature
+scss
+HMACSHA256(
+  base64UrlEncode(header) + "." + base64UrlEncode(payload),
+  secret
+)
+Dùng để xác thực token có bị chỉnh sửa không.
+Nếu phần header hoặc payload bị sửa, signature sẽ không khớp.
+Là chuỗi thứ ba, quan trọng nhất để bảo đảm tính toàn vẹn.
+3. Trường hợp sử dụng phổ biến của JWT
+Trường hợp	Mô tả
+Xác thực (Authentication)	Lưu thông tin người dùng vào JWT sau khi login. Client dùng JWT để truy cập tài nguyên.
+Phân quyền (Authorization)	Kiểm tra quyền truy cập bằng cách đọc các claims như role, scope.
+Trao đổi thông tin an toàn giữa các hệ thống	Ví dụ: microservices truyền thông tin qua lại.
+Giao tiếp client-server không trạng thái (stateless)	Giảm tải server, không cần lưu session.
+Hạn chế thời gian truy cập (Token Expiration)	Sử dụng exp, nbf, iat để kiểm soát thời gian hiệu lực.

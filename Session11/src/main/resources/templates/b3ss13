@@ -1,0 +1,40 @@
+🔓 1. Giải mã JWT mẫu
+JWT mẫu:
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ik5ndXllbiBUaGFuaCIsImlhdCI6MTUxNjIzOTAyMn0.
+SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+JWT có 3 phần, được phân cách bằng dấu .:
+
+Phần	Nội dung
+Header	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+Payload	eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ik5ndXllbiBUaGFuaCIsImlhdCI6MTUxNjIzOTAyMn0
+Signature	SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+2. Giải mã payload (sử dụng jwt.io hoặc code)
+Giải mã payload (Base64Url decode):
+
+json
+
+{
+  "sub": "1234567890",
+  "name": "Nguyen Thanh",
+  "iat": 1516239022
+}
+Giải thích các trường:
+Trường	Ý nghĩa
+sub (Subject)	ID của người dùng, định danh duy nhất (ví dụ: userId)
+name	Tên đầy đủ của người dùng
+iat (Issued At)	Thời điểm token được tạo (timestamp giây từ epoch 1970)
+3. Rủi ro bảo mật nếu để lộ thông tin nhạy cảm trong payload
+Lưu ý quan trọng:
+Payload không được mã hóa, chỉ là base64url — ai cũng có thể giải mã nếu có token.
+ Rủi ro nếu chứa thông tin nhạy cảm:
+Thông tin nhạy cảm	Rủi ro nếu bị lộ
+Mật khẩu, mã OTP	Có thể bị lạm dụng để đăng nhập trái phép
+Email, số điện thoại	Spam, lừa đảo, đánh cắp danh tính
+Quyền hệ thống (role, isAdmin)	Có thể bị giả mạo (nếu không kiểm tra kỹ signature)
+Dữ liệu cá nhân (CCCD, địa chỉ...)	Vi phạm bảo mật thông tin cá nhân
+Giải pháp:
+Không đưa thông tin nhạy cảm vào payload.
+Luôn kiểm tra chữ ký (signature) ở backend trước khi tin vào dữ liệu.
+Dùng HTTPS để bảo vệ token khỏi bị sniffing.
+

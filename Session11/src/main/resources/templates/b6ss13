@@ -1,0 +1,17 @@
+| STT | Tình huống lỗi                           | Mô tả chi tiết                                                      |
+| --- | ---------------------------------------- | ------------------------------------------------------------------- |
+| 1   | **JWT hết hạn** (*Expired*)              | Token có `exp` trong quá khứ → không còn hợp lệ.                    |
+| 2   | **JWT bị sửa đổi** (*Invalid signature*) | Payload hoặc header bị chỉnh sửa thủ công, không khớp với chữ ký.   |
+| 3   | **Sai định dạng JWT** (*Malformed*)      | Token không đúng format chuẩn `header.payload.signature`.           |
+| 4   | **Token trống/null**                     | Không có token trong header hoặc là chuỗi rỗng.                     |
+| 5   | **Token không hỗ trợ** (*Unsupported*)   | Token dùng thuật toán không được hỗ trợ hoặc cấu trúc không hợp lệ. |
+| 6   | **Token không hợp lệ người dùng**        | Token hợp lệ nhưng user trong token không tồn tại trong hệ thống.   |
+
+
+| Tình huống lỗi                  | Hành động phía client                                   |
+| ------------------------------- | ------------------------------------------------------- |
+| Token **hết hạn**               | 👉 Xóa token, **logout**, chuyển về màn hình đăng nhập. |
+| Token **bị sửa**                | 👉 Cảnh báo "Token không hợp lệ", logout ngay lập tức.  |
+| **Sai định dạng** hoặc **null** | 👉 Chặn request, chuyển hướng đăng nhập.                |
+| User trong token không tồn tại  | 👉 Đăng xuất, hiện thông báo "Tài khoản không hợp lệ".  |
+| Bị lỗi 401 toàn cục             | 👉 Kiểm tra token, làm mới hoặc redirect về `/login`.   |

@@ -7,19 +7,16 @@ import com.data.session11.model.entity.User;
 import com.data.session11.service.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -39,25 +36,8 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest request, HttpServletRequest httpRequest) {
-        try {
-            // 1. Xác thực người dùng
-            UsernamePasswordAuthenticationToken authToken =
-                    new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword());
-
-            Authentication authentication = authenticationManager.authenticate(authToken);
-
-            // 2. Đăng nhập (gắn session)
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            httpRequest.getSession(true); // tạo session nếu chưa có
-
-            return ResponseEntity.ok(Map.of("message", "Login successful"));
-        } catch (BadCredentialsException ex) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "Invalid credentials"));
-        } catch (Exception ex) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Đã có lỗi xảy ra");
-        }
-
+    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+        return ResponseEntity.ok(new ApiResponse<>(true,"success",userService.login(request),HttpStatus.CREATED));
     }
 
     @PostMapping("/logout")
@@ -66,4 +46,10 @@ public class AuthController {
         request.logout();
         return ResponseEntity.ok(Map.of("message", "Logged out successfully"));
     }
+
+    @GetMapping("/hello")
+    public ResponseEntity<String> hello() {
+        return ResponseEntity.ok("Hello! Bạn đã xác thực thành công.");
+    }
+
 }

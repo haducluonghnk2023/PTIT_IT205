@@ -9,7 +9,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
 
 
 @Builder
@@ -24,6 +23,7 @@ public class CustomUserDetails implements UserDetails {
     private String email;
     private String phone;
     private Boolean enabled;
+
     private Collection<? extends GrantedAuthority> authorities;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

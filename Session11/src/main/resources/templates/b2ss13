@@ -1,0 +1,62 @@
+[1] ┌────────────┐       [2]        ┌────────────┐
+    │   Client   │ ───── Request ─▶ │   Server   │
+    │ (username, │   /login API     │(Xác thực)  │
+    │ password)  │                  └────┬───────┘
+[6] │            │ ◀──── Token ────────┘
+    │ Lưu JWT    │
+    └────┬───────┘
+         │
+[3]      ▼
+Gửi request kèm header:
+Authorization: Bearer <JWT>
+         │
+         ▼
+[4] ┌────────────┐
+    │   Server   │
+    │Kiểm tra JWT│
+    └────┬───────┘
+         │
+         ▼
+[5] Xác thực thành công → Trả dữ liệu/cho phép truy cập
+
+
+2. Mô tả chi tiết các bước
+Bước 1: Client gửi thông tin đăng nhập
+Gửi POST /api/login với username và password.
+json
+{
+  "username": "admin",
+  "password": "123456"
+}
+Bước 2: Server xác thực thông tin
+Kiểm tra username/password đúng không.
+Nếu đúng → tạo JWT token bằng cách:
+Tạo payload với thông tin người dùng (ID, role,...)
+Dùng thuật toán ký (HS256, RS256) để tạo signature.
+Trả về token cho client.
+json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+Bước 3: Client lưu token
+Lưu JWT vào:
+LocalStorage, SessionStorage (trên trình duyệt)
+In-Memory (trong ứng dụng di động hoặc frontend app)
+Gửi kèm trong mỗi request tiếp theo:
+makefile
+Authorization: Bearer <token>
+Bước 4: Server kiểm tra token
+Trích xuất token từ header.
+Giải mã token:
+Decode base64 Header và Payload.
+Kiểm tra chữ ký (signature) hợp lệ không.
+Kiểm tra token đã hết hạn chưa (exp).
+Nếu hợp lệ:
+Server xác định user và cấp quyền truy cập.
+Bước 5: Truy cập tài nguyên
+Sau khi xác thực thành công:
+Server xử lý yêu cầu (API).
+Trả dữ liệu hoặc thực hiện hành động (ví dụ: lấy danh sách user, đặt vé,...).
+Bước 6: Lặp lại với các request khác
+Các request sau đều kèm JWT để được xác thực.
+
