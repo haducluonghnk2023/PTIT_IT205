@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductController {
 
     private final ProductService productService;
-
+    // demo
     @GetMapping
     public ResponseEntity<?> getAllProducts() {
         return ResponseEntity.ok(productService.getAll());
