@@ -1,0 +1,31 @@
+1. Cấu trúc payload JWT chứa thông tin role
+Khi user đăng nhập thành công, server sẽ sinh JWT với payload có chứa role:
+
+Ví dụ JWT Payload:
+json
+{
+  "sub": "user123",
+  "username": "john.doe",
+  "role": "ROLE_EDITOR",
+  "iat": 1721716000,
+  "exp": 1721719600
+}
+Lưu ý: Spring Security yêu cầu role có tiền tố ROLE_
+2. Luồng xác thực & phân quyền
+Luồng xác thực:
+User đăng nhập → POST /api/v1/auth/login gửi username & password.
+Server xác thực thông tin → nếu đúng:
+Sinh JWT chứa role.
+Trả về token cho client.
+Client gửi request tiếp theo → đính kèm Authorization: Bearer <token>.
+Filter JWT kiểm tra:
+Token hợp lệ không?
+Giải mã và lấy role từ token.
+Gán Authentication vào SecurityContext.
+Spring Security sẽ kiểm tra quyền dựa theo role.
+Phân quyền endpoint:
+Endpoint	Quyền truy cập
+/api/v1/admin/**	Chỉ ROLE_ADMIN
+/api/v1/editor/**	ROLE_EDITOR, ROLE_ADMIN
+/api/v1/user/**	ROLE_USER, ROLE_EDITOR, ROLE_ADMIN
+/api/v1/public/**	Mọi người (permitAll)
