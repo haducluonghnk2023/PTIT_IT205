@@ -14,7 +14,6 @@ import com.data.session14.sercurity.jwt.JWTProvider;
 import com.data.session14.service.EmailService;
 import com.data.session14.service.RefreshTokenService;
 import com.data.session14.service.UserService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
