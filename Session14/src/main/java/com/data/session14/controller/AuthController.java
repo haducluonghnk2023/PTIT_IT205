@@ -58,14 +58,14 @@ public class AuthController {
 
     // === Đăng nhập - Gửi OTP tới email ===
     @PostMapping("/login")
-    public ResponseEntity<APIResponse<String>> login(@RequestBody  UserLogin request) {
+    public ResponseEntity<?> login(@RequestBody  UserLogin request) {
         User user = userService.verifyPassword(request.getUsername(), request.getPassword());
         String otp = userService.generateOtp();
         user.setOtp(otp);
         userService.save(user);
         emailService.sendOtpEmail(user.getEmail(), otp);
 
-        return ResponseEntity.ok(new APIResponse<>("OTP đã được gửi tới email", null, true, HttpStatus.OK));
+        return ResponseEntity.ok(new APIResponse<>("OTP đã được gửi tới email", userService.loginUser(request), true, HttpStatus.OK));
     }
 
     // === Xác minh OTP và cấp JWT token ===

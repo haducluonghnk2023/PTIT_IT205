@@ -17,12 +17,16 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -92,23 +96,24 @@ public class UserServiceImpl implements UserService {
     public JWTResponse loginUser(UserLogin ul) {
         try {
             // Xác thực thông tin đăng nhập
-            Authentication authen = authenticationManager.authenticate(
+            Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(ul.getUsername(), ul.getPassword())
             );
 
-            // Lấy thông tin user đã xác thực
-            CustomUserDetails customUserDetails = (CustomUserDetails) authen.getPrincipal();
+            // Lấy thông tin user sau khi xác thực
+            CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
 
             // Sinh JWT token
             String token = jwtProvider.generateToken(customUserDetails.getUsername());
 
-            // Trả về JWTResponse
+            // Trả về JWTResponse (nên KHÔNG trả password ra ngoài)
             return JWTResponse.builder()
                     .username(customUserDetails.getUsername())
+                    .password(customUserDetails.getPassword())
                     .token(token)
-                    .password(customUserDetails.getPassword()) // có thể bỏ nếu không cần trả password ra ngoài
                     .email(customUserDetails.getEmail())
                     .enabled(customUserDetails.isEnabled())
+                    .authorities(customUserDetails.getAuthorities())
                     .build();
 
         } catch (AuthenticationException e) {
@@ -116,6 +121,7 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("Username hoặc password không chính xác");
         }
     }
+
 
     @Override
     public User verifyPassword(String username, String password) {
@@ -146,15 +152,21 @@ public class UserServiceImpl implements UserService {
 
         // Xác thực thành công, cấp token
         String token = jwtProvider.generateToken(user.getUsername());
-
+        String refreshToken = jwtProvider.refreshToken(token, user.getUsername());
         return JWTResponse.builder()
                 .username(user.getUsername())
+                .password(user.getPassword())
                 .email(user.getEmail())
                 .enabled(user.getEnabled())
-                .token(token)
+                .accessToken(token)
+                .refreshToken(refreshToken)
+                .authorities(mapRoleToGrandAuthorities(user.getRoles()))
                 .build();
     }
 
+    private Collection<? extends GrantedAuthority> mapRoleToGrandAuthorities(List<Role> roles) {
+        return  roles.stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
+    }
 
     @Override
     public void logoutAllSessions() {

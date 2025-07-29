@@ -28,6 +28,7 @@ public class User {
     private Boolean enabled;
     @Column(name = "otp")
     private String otp;
+    private String token;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),

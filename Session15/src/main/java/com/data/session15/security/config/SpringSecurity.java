@@ -1,6 +1,6 @@
-package com.data.session14.sercurity.config;
+package com.data.session15.security.config;
 
-import com.data.session14.sercurity.jwt.JWTAuthFilter;
+import com.data.session15.security.jwt.JWTAuthFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -37,31 +37,37 @@ public class SpringSecurity {
     }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, JWTAuthFilter jwtAuthFilter) throws Exception {
-        http.
-                csrf(AbstractHttpConfigurer::disable)
+        http
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        // Public
-                        .requestMatchers(HttpMethod.GET, "/api/movies/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/showtimes/**").permitAll()
-                        .requestMatchers("/api/tickets/book","/api/tickets/my").hasRole("USER")
-                        .requestMatchers("/api/v1/auth/login").permitAll()
-                        .requestMatchers("/api/v1/auth/verify-otp").permitAll()
-                        .requestMatchers("/api/auth/refresh-token").permitAll()
-                        .requestMatchers("/api/auth/logout").authenticated()
-                        // Admin only
-                        .requestMatchers("/api/admin/movies/**").hasRole("ADMIN")
-                        .requestMatchers("/api/admin/showtimes/**").hasRole("ADMIN")
-                        .requestMatchers("/api/admin/tickets").hasRole("ADMIN")
+                        // Public: Đăng ký, đăng nhập
+                        .requestMatchers("/api/v1/auth/register", "/api/v1/auth/login").permitAll()
 
-                        // Mọi request khác phải xác thực
+                        // Public: Sản phẩm public
+                        .requestMatchers(HttpMethod.GET,
+                                "/api/public/**"
+                        ).permitAll()
+
+                        // ADMIN: Quản lý người dùng, sản phẩm, đơn hàng, danh mục
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
+
+                        // USER: Giỏ hàng, đặt hàng, tài khoản người dùng
+                        .requestMatchers("/api/user/**").hasRole("USER")
+
+                        // Mọi request còn lại yêu cầu xác thực
                         .anyRequest().authenticated()
                 )
+                .exceptionHandling(ex ->
+                        ex.authenticationEntryPoint(authenticationEntryPoint())
+                )
+                .sessionManagement(s ->
+                        s.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
-                .exceptionHandling(ex-> ex.authenticationEntryPoint(authenticationEntryPoint()))
-                    .sessionManagement(s->s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                    .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
+
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
@@ -74,6 +80,4 @@ public class SpringSecurity {
         authProvider.setPasswordEncoder(passwordEncoder);
         return authProvider;
     }
-
-
 }
